@@ -1,0 +1,26 @@
+# Runs this fork of Navidrome on the mini PC (sacraficial-mini-ms-b09012).
+# Built from the checkout this file lives in, so every change to the fork
+# goes live with deploy/update.sh. See deploy/README.md.
+name: media
+
+services:
+  navidrome:
+    build:
+      context: ..
+      args:
+        GIT_SHA: ${GIT_SHA:-dev}
+        GIT_TAG: ${GIT_TAG:-fork}
+    image: matars/navidrome:local
+    container_name: navidrome
+    restart: unless-stopped
+    user: "1000:1000"
+    # Only on the box itself; Tailscale Serve puts it on the tailnet over HTTPS.
+    ports:
+      - "127.0.0.1:4533:4533"
+    environment:
+      ND_LOGLEVEL: info
+      ND_SCANSCHEDULE: 1h
+      ND_BASEURL: ""
+    volumes:
+      - /opt/media/navidrome/data:/data
+      - /home/sacraficial-mini/Music:/music:ro
