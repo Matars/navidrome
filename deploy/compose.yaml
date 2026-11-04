@@ -1,7 +1,7 @@
 # Runs this fork of Navidrome on the mini PC (sacraficial-mini-ms-b09012).
 # Built from the checkout this file lives in, so every change to the fork
 # goes live with deploy/update.sh. See deploy/README.md.
-name: media
+name: navidrome
 
 services:
   navidrome:
